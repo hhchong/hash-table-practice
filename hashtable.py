@@ -30,3 +30,45 @@ class HashTable:
         #creates 50 none buckets
         self.buckets = [None]*self.capacity
 
+    #create the hash from a given key, if the key is a string
+    #output will be a number from 0 to self.capacity (50 in this case)
+    def hash(self, key):
+        hashsum = 0
+        for idx, c in enumerate(key):
+            #honestly there are different ways to do this, as long as it spreads it out among the internal bucket array
+            hashsum += (idx + len(key)) ** ord(c)
+            #modulo allows it to be in range 0 to self.capacity
+            hashsum = hashum % self.capacity
+        return hashsum
+
+    #function to insert a key, value pair to the hashtable
+    def insert(self, key, value):
+        # increment the size of the hash table
+        self.size += 1
+        # get the new index aka hashed key
+        index = self.hash(key)
+        #go to the node corresponding to hash
+        node = self.buckets[index]
+        #if it is empty, create the node at the bucket and return
+        if node is None:
+            self.buckets[index] = Node(key, value)
+            return
+        #if not empty, go to the end of the linked list at the bucket, create new node, but add it to the end
+        prev = node
+        while node is not None:
+            prev = node
+            node = node.next
+
+        prev.next = Node(key, value)
+
+
+
+
+
+
+
+
+
+
+
+
