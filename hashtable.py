@@ -61,6 +61,26 @@ class HashTable:
 
         prev.next = Node(key, value)
 
+    #function to find a data value based on a given key
+    #input is the key, which is a string
+    #output is the value stored under the key, or if there is no key, None
+    def find(self, key):
+        #get the hashed key
+        index = self.hash(key)
+        #go to the node in list at bucket
+        node = self.buckets[index]
+        #traverse the linked list at the node
+        while node is not None and node.key != key:
+            node = node.next
+        # now node = the requested key value pair or it's None if it doesn't exist
+        if node is None:
+            return None
+
+        else:
+            return node.value
+        
+
+
 
 
 
