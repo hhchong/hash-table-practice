@@ -78,7 +78,33 @@ class HashTable:
 
         else:
             return node.value
-        
+
+    #function to remove node stored at the given key
+    #input is the key, which is a string
+    #output is the value stored under the key, or if there is no key, None
+    def remove(self, key):
+        #get the hashed key and the node from the hashed key like past two functions
+        index = self.hash(key)
+        node = self.buckets[index]
+        prev = None
+        #iterate to the requested node
+        while node is not None and node.key != key:
+            prev = node
+            node = node.next
+        #now node is either the requested node or none
+        if node is None:
+            return None
+        else:
+            #node is found! let's delete it. decrement the size by 1
+            self.size -= 1
+            result = node.value
+            if prev is None:
+                #delete the node, node.next may be None or the next match
+                self.buckets[index] = node.next
+            else:
+                #linkedlist delete, skips the next 
+                prev.next = prev.next.next
+            return result
 
 
 
